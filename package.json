@@ -1,6 +1,6 @@
 {
   "name": "final-app",
-  "homepage": "https://ltwmori.github.io/db-website",
+  "homepage": "https://db-website.vercel.app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
