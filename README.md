@@ -11,11 +11,9 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Database
-Deployed using Supabase
+The final webapp was deployed using Supabase, Heroku and Vercel.
 
-## Backend
-Deployed using Heroku: [link](https://db-project-back.herokuapp.com/docs)
+Backend was implemented using Fastapi and frontend was done using React (Typescript).
 
-## Frontend 
-Deployed using Vercel: [link](https://db-website.vercel.app)
+
+
