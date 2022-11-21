@@ -1,25 +1,14 @@
 import { useState } from "react";
-import { createStyles, Navbar, Group, Code, Flex, Table } from "@mantine/core";
+import { createStyles, Navbar, Group, Code, Flex } from "@mantine/core";
 import {
-  IconBellRinging,
-  IconFingerprint,
-  IconKey,
-  IconSettings,
-  Icon2fa,
-  IconDatabaseImport,
-  IconReceipt2,
-  IconSwitchHorizontal,
-  IconLogout,
   IconVaccine,
   IconGlobe,
-  IconClipboardCopy,
   IconClipboardHeart,
   IconVirusSearch,
   IconUsers,
   IconBuildingCommunity,
   IconHealthRecognition,
   IconReportMedical,
-  IconBuildingHospital,
   IconNurse,
 } from "@tabler/icons";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -150,7 +139,7 @@ const rows = elements.map((element) => (
 
 export function NavbarSimple() {
   const { classes, cx } = useStyles();
-  const [active, setActive] = useState("Billing");
+  const [active, setActive] = useState("Disease Types");
   const navigate = useNavigate();
   const location = useLocation();
   const links = data.map((item) => (

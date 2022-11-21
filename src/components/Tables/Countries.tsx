@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Button, Table } from "@mantine/core";
+import { useState, useEffect } from "react";
+import { Button, Flex, Loader, Table } from "@mantine/core";
 import { getCountry, deleteCountry } from "../../requests/country";
 import { ICountry } from "../../ts/types";
 import { IconEdit, IconTrash } from "@tabler/icons";
 
 const Country = () => {
   const [country, setCountry] = useState<ICountry[]>([]);
-
+  const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
+    setLoading(true);
     getCountry().then((res) => {
       setCountry(res);
+      setLoading(false);
     });
   }, []);
-
-
 
   const handleDelete = (elem: string) => {
     deleteCountry(elem).then((res: any) => console.log(res));
@@ -24,7 +24,6 @@ const Country = () => {
       });
     }, 100);
   };
-
 
   const rows = country.map((element) => (
     <tr key={element.cname}>
@@ -47,22 +46,31 @@ const Country = () => {
   ));
 
   return (
-    <Table>
-      <thead>
-        <tr>
-          <th>Country Name</th>
-          <th>Population</th>
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </Table>
+    <>
+      {loading ? (
+        <Flex
+          mih={600}
+          gap="md"
+          justify="center"
+          align="center"
+          direction="row"
+          wrap="wrap"
+        >
+          <Loader size="xl" />
+        </Flex>
+      ) : (
+        <Table>
+          <thead>
+            <tr>
+              <th>Country Name</th>
+              <th>Population</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </Table>
+      )}
+    </>
   );
-
-
-
-
-
-  
 };
 
 export default Country;

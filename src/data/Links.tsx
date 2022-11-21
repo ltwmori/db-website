@@ -1,6 +1,11 @@
+import Home from "../pages/Home";
 import Main from "../pages/Main";
 
 export const ROUTES = [
+  {
+    path: "/",
+    component: <Home />,
+  },
   {
     path: "/types",
     component: <Main />,

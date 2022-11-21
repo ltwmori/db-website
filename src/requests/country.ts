@@ -4,9 +4,7 @@ import { ICountry } from "../ts/types";
 export const getCountry = (): Promise<ICountry[]> =>
   api.get("/country").then((response) => response.data);
 
-export const postCountry = (
-  country: ICountry
-): Promise<ICountry> =>
+export const postCountry = (country: ICountry): Promise<ICountry> =>
   api.post("/country", country).then((response) => response.data);
 
 //delete request

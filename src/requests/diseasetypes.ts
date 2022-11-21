@@ -9,6 +9,6 @@ export const postDiseaseType = (
 ): Promise<IDiseaseType> =>
   api.post("/disease_type", diseaseType).then((response) => response.data);
 
-  //delete request
+//delete request
 export const deleteDiseaseType = (id: number): Promise<IDiseaseType> =>
   api.delete(`/disease_type/${id}`).then((response) => response.data);

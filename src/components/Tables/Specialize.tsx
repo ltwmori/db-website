@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { Table, Button } from "@mantine/core";
+import { useState, useEffect } from "react";
+import { Table, Button, Flex, Loader } from "@mantine/core";
 import { getSpecialize, deleteSpecialize } from "../../requests/specialize";
 import { ISpezialize } from "../../ts/types";
 import { IconEdit, IconTrash } from "@tabler/icons";
 
 const Specialize = () => {
   const [specialize, setSpecialize] = useState<ISpezialize[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setLoading(true);
     getSpecialize().then((res) => {
       setSpecialize(res);
+      setLoading(false);
     });
   }, []);
 
-//handle delete
+  //handle delete
 
   const handleDelete = (elem: number) => {
     deleteSpecialize(elem).then((res: any) => console.log(res));
@@ -24,7 +27,6 @@ const Specialize = () => {
       });
     }, 100);
   };
-
 
   const rows = specialize.map((element) => (
     <tr key={element.email}>
@@ -47,15 +49,30 @@ const Specialize = () => {
   ));
 
   return (
-    <Table>
-      <thead>
-        <tr>
-          <th>ID of the disease type</th>
-          <th>Email of the doctor</th>
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </Table>
+    <>
+      {loading ? (
+        <Flex
+          mih={600}
+          gap="md"
+          justify="center"
+          align="center"
+          direction="row"
+          wrap="wrap"
+        >
+          <Loader size="xl" />
+        </Flex>
+      ) : (
+        <Table>
+          <thead>
+            <tr>
+              <th>ID of the disease type</th>
+              <th>Email of the doctor</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </Table>
+      )}
+    </>
   );
 };
 

@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button } from "@mantine/core";
+import { Table, Button, Loader, Flex } from "@mantine/core";
 import { getRecord, deleteRecord } from "../../requests/record";
 import { IRecord } from "../../ts/types";
 import { IconEdit, IconTrash } from "@tabler/icons";
 
 const Record = () => {
   const [record, setRecord] = useState<IRecord[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setLoading(true);
+
     getRecord().then((res) => {
       setRecord(res);
+      setLoading(false);
     });
   }, []);
 
-//handle delete
+  //handle delete
 
   const handleDelete = (elem: string) => {
     deleteRecord(elem).then((res: any) => console.log(res));
@@ -49,18 +53,33 @@ const Record = () => {
   ));
 
   return (
-    <Table>
-      <thead>
-        <tr>
-          <th>Email</th>
-          <th>Country name</th>
-          <th>Disease Code</th>
-          <th>Total Deaths</th>
-          <th>Total Patients</th>
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </Table>
+    <>
+      {loading ? (
+        <Flex
+          mih={600}
+          gap="md"
+          justify="center"
+          align="center"
+          direction="row"
+          wrap="wrap"
+        >
+          <Loader size="xl" />
+        </Flex>
+      ) : (
+        <Table>
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Country name</th>
+              <th>Disease Code</th>
+              <th>Total Deaths</th>
+              <th>Total Patients</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </Table>
+      )}
+    </>
   );
 };
 

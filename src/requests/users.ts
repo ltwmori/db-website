@@ -7,12 +7,9 @@ export const getUsers = (): Promise<IUser[]> =>
 export const postUser = (user: IUser): Promise<IUser> =>
   api.post("/users", user).then((response) => response.data);
 
-  
 //put request
-export const putUser = (user: IUser
-): Promise<IUser> =>
+export const putUser = (user: IUser): Promise<IUser> =>
   api.put(`/users/${user.email}`, user).then((response) => response.data);
-
 
 //delete request
 export const deleteUser = (email: string): Promise<IUser> =>

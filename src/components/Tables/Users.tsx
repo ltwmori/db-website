@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { Button, Table, Text } from "@mantine/core";
+import { useState, useEffect } from "react";
+import { Button, Flex, Loader, Table } from "@mantine/core";
 import { getUsers, deleteUser } from "../../requests/users";
 import { IUser } from "../../ts/types";
-import { Link } from "react-router-dom";
-import { IconEdit, IconExternalLink, IconTrash } from "@tabler/icons";
+import { IconEdit, IconTrash } from "@tabler/icons";
 
 const Users = () => {
   // delete user function
-  
 
   const [users, setUsers] = useState<IUser[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setLoading(true);
     getUsers().then((res) => {
       setUsers(res);
+      setLoading(false);
     });
   }, []);
-
 
   const handleDelete = (elem: string) => {
     deleteUser(elem).then((res: any) => console.log(res));
@@ -27,7 +27,6 @@ const Users = () => {
       });
     }, 100);
   };
-
 
   const rows = users.map((element) => (
     <tr key={element.email}>
@@ -55,19 +54,34 @@ const Users = () => {
   ));
 
   return (
-    <Table>
-      <thead>
-        <tr>
-          <th>Email</th>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Salary</th>
-          <th>Phone</th>
-          <th>Country Name</th>
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </Table>
+    <>
+      {loading ? (
+        <Flex
+          mih={600}
+          gap="md"
+          justify="center"
+          align="center"
+          direction="row"
+          wrap="wrap"
+        >
+          <Loader size="xl" />
+        </Flex>
+      ) : (
+        <Table>
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>Salary</th>
+              <th>Phone</th>
+              <th>Country Name</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </Table>
+      )}
+    </>
   );
 };
 

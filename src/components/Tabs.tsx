@@ -71,7 +71,7 @@ const TabsUp = () => {
   };
 
   return (
-    <Tabs defaultValue="rows">
+    <Tabs defaultValue="types">
       <Tabs.List mb="20px">
         <Tabs.Tab value="types">Disease Types</Tabs.Tab>
         <Tabs.Tab value="countries">Countries</Tabs.Tab>

@@ -1,20 +1,19 @@
-import React, { useState, useEffect, SetStateAction } from "react";
-import { Button, Input, Table } from "@mantine/core";
+import React, { useState, useEffect } from "react";
+import { Button, Flex, Input, Loader, Table } from "@mantine/core";
 import { getDiseaseType, deleteDiseaseType } from "../../requests/diseasetypes";
 import { IDiseaseType } from "../../ts/types";
-import {
-  IconTrash,
-  IconEdit,
-  IconClipboardCheck,
-  IconCheck,
-} from "@tabler/icons";
+import { IconTrash, IconEdit, IconCheck } from "@tabler/icons";
 
 const DiseaseTypes = () => {
   const [diseaseType, setDiseaseTypes] = useState<IDiseaseType[]>([]);
-
+  // state for loading
+  const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
+    setLoading(true);
+
     getDiseaseType().then((res) => {
       setDiseaseTypes(res);
+      setLoading(false);
     });
   }, []);
 
@@ -51,7 +50,7 @@ const DiseaseTypes = () => {
             id="input-demo"
             placeholder="Description"
             value={formValue}
-            onChange = {handleFormInputChange}
+            onChange={handleFormInputChange}
           />
         </td>
       )}
@@ -88,15 +87,30 @@ const DiseaseTypes = () => {
   ));
 
   return (
-    <Table>
-      <thead>
-        <tr>
-          <th>ID of the disease type</th>
-          <th>Description of the disease type</th>
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </Table>
+    <>
+      {loading ? (
+        <Flex
+          mih={600}
+          gap="md"
+          justify="center"
+          align="center"
+          direction="row"
+          wrap="wrap"
+        >
+          <Loader size="xl" />
+        </Flex>
+      ) : (
+        <Table>
+          <thead>
+            <tr>
+              <th>ID of the disease type</th>
+              <th>Description of the disease type</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </Table>
+      )}
+    </>
   );
 };
 

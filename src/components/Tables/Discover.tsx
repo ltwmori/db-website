@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Button, Table } from "@mantine/core";
+import { useState, useEffect } from "react";
+import { Button, Table, Flex, Loader } from "@mantine/core";
 import { deleteDiscover, getDiscover } from "../../requests/discover";
 import { IDiscover } from "../../ts/types";
 import { IconEdit, IconTrash } from "@tabler/icons";
 
 const Discover = () => {
   const [discover, setDiscover] = useState<IDiscover[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-
-  
   useEffect(() => {
+    setLoading(true);
     getDiscover().then((res) => {
       setDiscover(res);
+      setLoading(false);
     });
   }, []);
 
@@ -24,7 +25,6 @@ const Discover = () => {
       });
     }, 100);
   };
-
 
   const rows = discover.map((element) => (
     <tr key={element.cname}>
@@ -48,16 +48,31 @@ const Discover = () => {
   ));
 
   return (
-    <Table>
-      <thead>
-        <tr>
-          <th>Country</th>
-          <th>Disease Code</th>
-          <th>Date of discovering</th>
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </Table>
+    <>
+      {loading ? (
+        <Flex
+          mih={600}
+          gap="md"
+          justify="center"
+          align="center"
+          direction="row"
+          wrap="wrap"
+        >
+          <Loader size="xl" />
+        </Flex>
+      ) : (
+        <Table>
+          <thead>
+            <tr>
+              <th>Country</th>
+              <th>Disease Code</th>
+              <th>Date of discovering</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </Table>
+      )}
+    </>
   );
 };
 

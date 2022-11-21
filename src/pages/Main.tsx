@@ -2,13 +2,12 @@ import {
   AppShell,
   Header,
   Flex,
-  Input,
   Title,
   Group,
   Button,
   Modal,
 } from "@mantine/core";
-import { IconDatabase, IconSearch } from "@tabler/icons";
+import { IconDatabase } from "@tabler/icons";
 import { NavbarSimple } from "../components/Navbar";
 import DiseaseTypes from "../components/Tables/DiseaseTypes";
 import { useLocation } from "react-router-dom";
@@ -92,18 +91,22 @@ const Main = () => {
             {location.pathname.split("/")[1]}
           </Title>
           <Modal
-        opened={opened}
-        onClose={() => setOpened(false)}
-        title="Creating new rows for table"
-        size="80%"
-      >
-        <TabsUp/>
-      </Modal>
-          <Button leftIcon={<IconDatabase />} variant="light" onClick={() => setOpened(true)} >
+            opened={opened}
+            onClose={() => setOpened(false)}
+            title="Creating new rows for table"
+            size="80%"
+          >
+            <TabsUp />
+          </Modal>
+          <Button
+            leftIcon={<IconDatabase />}
+            variant="light"
+            onClick={() => setOpened(true)}
+          >
             Create a new row
           </Button>
         </Group>
-        <Input icon={<IconSearch />} placeholder="Search " size="md" />
+
         <ProjectIntros slug={location.pathname.split("/")[1]} />
       </Flex>
     </AppShell>
