@@ -108,7 +108,7 @@ export function HeroTitle() {
 
           <Button
             component="a"
-            href="https://github.com/mantinedev/mantine"
+            href="https://github.com/ltwmori/db-website"
             size="xl"
             variant="default"
             className={classes.control}
